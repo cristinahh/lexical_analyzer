@@ -1,13 +1,3 @@
-/******************************************************************************
-
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
-// CPP program to illustrate Pair in STL
-
 #include <string>
 #include <iostream>
 #include <utility>
