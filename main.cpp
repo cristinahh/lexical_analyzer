@@ -180,20 +180,18 @@ string stringFix(string input)
             outputVect.push_back(' ');
         }
         
-        //If there's a decimal or period, push here
-        // I tried to implement a hyphen/ negative check here, but it didnt work
-        //There might be a better way to do this, this started as a couple different funcitons and this is just the result 
-        else if(input[i] == '.')
-        {
-            outputVect.push_back('.');  
-        }
         
         //This should work for negatives.
         else if(input[i] == '-' && isdigit(input[(i+1)]))
         {
             outputVect.push_back('-');
         }
-        
+		
+	 // This allows !=, ==, <<, etc statements to be pushed without a space between them
+        else if( input[i] == '=' || input[i] == '+' || input[i] == '/' || input[i] == '%' 
+        || input[i] == '&'|| input[i] == '|'|| input[i] == '<' || input[i] == '>' || input[i] == '!' || input[i] == '.' )
+           
+		
         else if (input[i] == '(' || ')' || ';')
         {
             //If no space before operator, add one
