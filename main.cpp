@@ -190,7 +190,9 @@ string stringFix(string input)
 	 // This allows !=, ==, <<, etc statements to be pushed without a space between them
         else if( input[i] == '=' || input[i] == '+' || input[i] == '/' || input[i] == '%' 
         || input[i] == '&'|| input[i] == '|'|| input[i] == '<' || input[i] == '>' || input[i] == '!' || input[i] == '.' )
-           
+	{ 
+		outputVect.push_back(input[i]);  
+	}
 		
         else if (input[i] == '(' || ')' || ';')
         {
