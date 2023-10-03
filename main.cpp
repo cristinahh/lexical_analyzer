@@ -49,7 +49,7 @@ bool isIdentifier(string word)
 bool isOperator(string word)
 {
     if(word == "+" || word == "-" || word == "/" || word == "%" || 
-    word == "*" || word == "<" || word == ">" || word == "=>" || word == "=<" || word == "==" || word == "=")
+    word == "*" || word == "<" || word == ">" || word == ">=" || word == "<=" || word == "==" || word == "=")
     {
         return true;
     }
