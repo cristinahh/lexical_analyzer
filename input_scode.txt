@@ -1,1 +1,5 @@
-while (t < upper) s = 22.00;
+while (t <upper) s = 22.00;
+for( int i = 0; i <4; i ++);s++;
+int cat = 100;
+cat = 9-1;
+if( cat >=5); cout << cat;
