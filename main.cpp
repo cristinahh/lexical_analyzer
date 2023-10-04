@@ -19,7 +19,7 @@ int countDec = 0; // keeps track of decimal signs. Used inside isReal.
 //The word is passed here for checking if keyword
 bool isKeyword(string word)
 {
-    if( word == "int" || word == "while" || word == "else" || word == "if" || word == "double"|| word == "string"|| word == "for")
+    if( word == "int" || word == "while" || word == "else" || word == "if" || word == "double"|| word == "string"|| word == "for" || word == "cout")
     {
         return true;
     }
@@ -51,9 +51,11 @@ bool isIdentifier(string word)
 //The word is passed here for checking if Operator
 bool isOperator(string word)
 {
+    
     if(word == "+" || word == "-" || word == "/" || word == "%" || 
     word == "*" || word == "<" || word == ">" || word == ">=" || 
-    word == "<=" || word == "==" || word == "=")
+    word == "<=" || word == "==" || word == "="|| word == "++" || 
+     word == "<<" || word == "--")
     {
         return true;
     }
@@ -156,27 +158,20 @@ vector<char> clearVect(vector<char>& vect)
 }
 
 
-/*
-
-// This is the print function for the Output myVect pairs
-void print(vector<pair<string,string > > vect)
+/* This lexer function acts as a print function. It prints all the tokens 
+and lexemes once they are all separated and categorized appropriately.The output is saved in a file called output.txt*/
+void lexer(vector<pair<string,string > > vect)
 {
+    ofstream myFile;
+    myFile.open("output.txt");
+
     for ( int i = 0; i < vect.size(); i++)
     {
-        cout<< ( vect[i].first) << ", " << vect[i].second << endl;
+        myFile << ( vect[i].first) << ", " << vect[i].second << endl;
     }
+
+    myFile.close();
 }
-
-*/
-
-void print(ostream & fout, vector<pair<string,string > > vect)
-{
-    for ( int i = 0; i < vect.size(); i++)
-    {
-        fout<< ( vect[i].first) << ", " << vect[i].second << endl;
-    }
-}
-
 
 //This function makes the input string something we can actually parse
 string stringFix(string input)
@@ -192,11 +187,17 @@ string stringFix(string input)
         //Alphanumeric & Spaces are Okay to push
         if (isalpha(input[i]))
         {
-           outputVect.push_back(input[i]);
+            if( input[i-1] == '<' || input[i-1] == '>'|| input[i-1] == '+' || input[i-1] == '-')
+                outputVect.push_back(' ');
+
+            outputVect.push_back(input[i]);
         }
         
         else if (isdigit(input[i]))
         {
+            if( input[i-1] == '<' || input[i-1] == '>'|| input[i-1] == '+' || input[i-1] == '-' || input[i-1] == '*' || input[i-1] == '%' || input[i-1] == '=')
+                outputVect.push_back(' ');
+     
            outputVect.push_back(input[i]);
         }
         
@@ -207,16 +208,23 @@ string stringFix(string input)
         
         
         //This should work for negatives.
-        else if(input[i] == '-' && isdigit(input[(i+1)]))
+        else if(input[i] == '-' && isdigit(input[(i+1)]) && !isdigit(input[i-1]) )
         {
             outputVect.push_back('-');
         }
 		
 	 // This allows !=, ==, <<, etc statements to be pushed without a space between them
-        else if( input[i] == '=' || input[i] == '+' || input[i] == '/' || input[i] == '%' 
-        || input[i] == '&'|| input[i] == '|'|| input[i] == '<' || input[i] == '>' || input[i] == '!' || input[i] == '.' )
+        else if( input[i] == '=' || input[i] == '+' || input[i] == '-' 
+        || input[i] == '&'|| input[i] == '|'|| input[i] == '<' || input[i] == '>' || input[i] == '!' || input[i] == '.'  )
 	    { 
-		    outputVect.push_back(input[i]);  
+                if( isalpha(input[i-1]) )
+                    outputVect.push_back(' '); 
+
+                 else if ( isdigit(input[i-1]) && input[i] != '.' )
+                    outputVect.push_back(' ');     
+
+                outputVect.push_back(input[i]); 
+
 	    }
 		
         else if (input[i] == '(' || ')' || ';')
@@ -248,9 +256,10 @@ string stringFix(string input)
 // Driver Code
 int main()
 {
-    //input_scode.txt is our input file
     string inputFileName = "input_scode.txt"; 
     ifstream inputFile(inputFileName);
+    string input;
+    string totalInput;
    
     if (!inputFile.is_open())
     {
@@ -258,13 +267,20 @@ int main()
         return 0;
     }
 
-    string input;
-    getline(inputFile, input); 
+    while(inputFile.good())
+    {
+    
+        getline(inputFile, input);
+        totalInput = totalInput + input;
+    }
+
     inputFile.close();
 
-    // cout << "Input from file: " << input << endl;               // This is string you start with
-    string checkStr = stringFix(input);
-   // cout << "String fixed with spaces : " << checkStr << endl;  // This is string with appropriate spaces
+    // This is string you start with
+    //cout << "Input from file:" << totalInput << endl;               
+    string checkStr = stringFix(totalInput);
+    // This is string with appropriate spaces
+    //cout << "String fixed with spaces :" << checkStr << endl;  
     //string checkStr = "while ( t < upper ) s = 22.00 ;";
 
     for ( int i = 0; i < checkStr.length(); i++ ) {
@@ -286,11 +302,7 @@ int main()
         }
     }
 
-ofstream fileOutput;
-fileOutput.open("output.txt");
-
-print(fileOutput, myVect);
-
-fileOutput.close();
+    
+    lexer(myVect);
 	return 0;
 }
