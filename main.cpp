@@ -19,7 +19,8 @@ int countDec = 0; // keeps track of decimal signs. Used inside isReal.
 //The word is passed here for checking if keyword
 bool isKeyword(string word)
 {
-    if( word == "int" || word == "while" || word == "else" || word == "if" || word == "double"|| word == "string"|| word == "for" || word == "cout")
+    if( word == "int" || word == "while" || word == "else" || word == "if" 
+     || word == "double"|| word == "string"|| word == "for" || word == "cout")
     {
         return true;
     }
