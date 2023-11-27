@@ -88,10 +88,18 @@ string stringFix(string input)
 
 
 
-void parse(string inputstring)
+void parse(string inputstring, string originput)
 {
     ofstream myFile;
+
+
+
+    //NONE OF THIS IS FINISHED
+    string result;
+    if result = "accepted";
     myFile.open("tree_mydesign.txt");
+    myFile << "Input: " << originput << endl
+        << "Stack: " << endl;
 
 
 
