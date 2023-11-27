@@ -8,6 +8,7 @@ identifier, s
 operator, =
 real, 22.00
 separator, ;
+real, 
 keyword, for
 separator, (
 keyword, int
@@ -26,17 +27,20 @@ separator, ;
 identifier, s
 operator, ++
 separator, ;
+real, 
 keyword, int
 identifier, cat
 operator, =
 real, 100
 separator, ;
+real, 
 identifier, cat
 operator, =
 real, 9
 operator, -
 real, 1
 separator, ;
+real, 
 keyword, if
 separator, (
 identifier, cat
@@ -48,3 +52,4 @@ keyword, cout
 operator, <<
 identifier, cat
 separator, ;
+real, 
