@@ -607,7 +607,12 @@ void print_vector(const vector<char>& v)
 
 int main(){
 
+
+    //PLACE INPUT STRING HERE
     string str = "(id+id)*id$";
+
+
+    //Printing the table
     cout << "Input string: " << str << endl;
     string_to_vector(str);
     cout << "string as vector: " << endl;
